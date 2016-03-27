@@ -29,9 +29,9 @@ def svd_recommend(mat, k):
 
 
 if __name__ == '__main__':
-    from read import read
+    from read import read_ratings
 
-    rating_mat = read("/Users/wumengling/PycharmProjects/movielens_resys/data/small_train_ratings.dat")
+    rating_mat = read_ratings("/Users/wumengling/PycharmProjects/movielens_resys/data/small_train_ratings.dat")
     print singular_value_decomposition(rating_mat, 2)
 
     print svd_recommend(rating_mat, 2)
