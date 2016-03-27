@@ -13,11 +13,11 @@ def cosine_similarity(rating_matrix, user_based=True):
     :return: csr_matrix, 相似度矩阵
     """
     rating_matrix = rating_matrix.transpose() if user_based is False else rating_matrix
-    inner_product = rating_matrix * rating_matrix.transpose()
+    inner_product = rating_matrix * rating_matrix.transpose().todense()
     row_mode = row_mod(rating_matrix)
-    mod_product = row_mode * row_mode.transpose()
-    inner_product.data /= mod_product.data
-    return inner_product
+    mod_product = row_mode * row_mode.transpose().todense()
+    inner_product /= mod_product
+    return csr_matrix(inner_product)
 
 
 def row_mod(mat):
@@ -32,6 +32,6 @@ def row_mod(mat):
 
 
 if __name__ == '__main__':
-    from read import read
-    rating_mat = read("/Users/wumengling/PycharmProjects/movielens_resys/data/small_train_ratings.dat")
+    from read import read_ratings
+    rating_mat = read_ratings("/Users/wumengling/PycharmProjects/movielens_resys/data/small_train_ratings.dat")
     print cosine_similarity(rating_mat, False)
