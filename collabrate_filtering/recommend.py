@@ -28,10 +28,15 @@ def recommend(predict_mat):
 
 
 if __name__ == '__main__':
-    from read import read
+    from read import read_ratings, read_movies
     from similarity_matrix import cosine_similarity
-    rating_mat = read("/Users/wumengling/PycharmProjects/movielens_resys/data/small_train_ratings.dat")
-    item_simi = cosine_similarity(rating_mat, False)
-    test_rating = read("/Users/wumengling/PycharmProjects/movielens_resys/data/small_test_ratings.dat")
-    pred_mat = predict_ratings(test_rating, item_simi)
-    print recommend(pred_mat)
+    # rating_mat = read_ratings("/Users/wumengling/PycharmProjects/movielens_resys/data/small_train_ratings.dat")
+    # item_simi = cosine_similarity(rating_mat, False)
+    # test_rating = read_ratings("/Users/wumengling/PycharmProjects/movielens_resys/data/small_test_ratings.dat")
+    # pred_mat = predict_ratings(test_rating, item_simi)
+    # print recommend(pred_mat)
+    genres_rel = {genre: genre_no for genre_no, genre in enumerate(
+        ["Action", "Adventure", "Animation", "Children's", "Comedy", "Crime", "Documentary", "Drama", "Fantasy",
+         "Film-Noir", "Horror", "Musical", "Mystery", "Romance", "Sci-Fi", "Thriller", "War", "Western"])}
+    movies = read_movies("/Users/wumengling/PycharmProjects/movielens_resys/data/small_movies.dat", genres_rel)
+    print cosine_similarity(movies)
